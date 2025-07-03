@@ -40,13 +40,21 @@ For the pieces stickers, print them via ```/assets/2D/sticker_chess``` and place
 The player can move a piece inaccurately on a tile and the robot can have issues lifting it up. So we place magnets in the board and under the pieces to solve this issue. The holes are planned in the .stl files for the 10x1mm neodymium magnets.
 
       
-             |     |
- Piece ->    |_ N _|
-                ⇕
- Board ->   |-- S --|-- S --| ... |-- S --|
+     ┌─────────┐
+     │  PIÈCE  │
+     │   ___   │
+     │  | N |  │
+     │  |___|  │
+     └─────────┘
+         ⇕
+    ┌────┐ ┌────┐ ┌────┐ … ┌────┐
+    │  S │ │ S  │ │ S  │   │ S  │
+    └────┘ └────┘ └────┘ … └────┘
 
-N -> North magnet pole
-S -> South magnet pole
+
+N -> North magnet pole on the piece
+
+S -> South magnet pole on the board tiles
 
 
 ## 4. Environment setup
@@ -76,7 +84,13 @@ to upload audio files towards Ned2.
 ```pipieline.py``` uses torch to load the next move prediction AI model.
 Download the ```model_data``` file. Unzip it and place the model_data folder in ```ChessUtils/```
 
-### 4.5 (Optionnal) Train your own model
+### 4.5 Calibrate the workspace
+Download NiryoStudio : https://niryo.com/niryostudio/
+
+Connect to the robot with the application and got to ``` Library > Workspaces > Add+ ``` and calibrate the new workspace. **Make sur to name the workspace ```"ChessBoard"```**
+
+
+### 4.6 (Optionnal) Train your own model
 If you have different pieces than the .stl ones provided, you might want to train your own pieces detection model.
 I used YOLO v5 model. Annotated data with LabelStudio and trained in Google Colab instace.
 Save the model weights (best.pt or last.pt) and place it in ```src/```
