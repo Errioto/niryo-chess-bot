@@ -39,17 +39,29 @@ For the pieces stickers, print them via ```/assets/2D/sticker_chess``` and place
 ### 3.4 Assembly
 The player can move a piece inaccurately on a tile and the robot can have issues lifting it up. So we place magnets in the board and under the pieces to solve this issue. The holes are planned in the .stl files for the 10x1mm neodymium magnets.
 
-      
-     ┌─────────┐
-     │  PIÈCE  │
-     │   ___   │
-     │  | N |  │
-     │  |___|  │
-     └─────────┘
-         ⇕
-    ┌────┐ ┌────┐ ┌────┐ … ┌────┐
-    │  S │ │ S  │ │ S  │   │ S  │
-    └────┘ └────┘ └────┘ … └────┘
+```mermaid
+flowchart TB
+  subgraph PIECE
+    style P fill:#f9f,stroke:#333,stroke-width:2px
+    P([PIECE])
+    M1([N]):::magnet_piece
+    P -->|magnet| M1
+  end
+
+  subgraph BOARD
+    direction LR
+    M2([S]):::magnet_board
+    M3([S]):::magnet_board
+    M4([S]):::magnet_board
+    M2 & M3 & M4
+  end
+
+  M1 -- Attracts --> M2
+
+  classDef magnet_piece fill:#faa,stroke:#900,stroke-width:1px;
+  classDef magnet_board fill:#aaf,stroke:#009,stroke-width:1px;
+
+```
 
 
 N -> North magnet pole on the piece
